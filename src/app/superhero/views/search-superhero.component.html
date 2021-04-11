@@ -1,0 +1,15 @@
+<div>
+
+    <input #searchBox (keyup)="search(searchBox.value)"
+    placeholder="search"/>
+
+    <div>
+        <li *ngFor="let superHero of superHeroes$ | async" >
+
+        <a routerLink="/superhero/{{superHero.id}}">
+        <!-- (clic)="goDetail(superHero)" -->
+            {{ superHero.name }}
+        </a>
+    </li>
+    </div>
+</div>

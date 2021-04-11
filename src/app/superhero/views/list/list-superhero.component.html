@@ -1,0 +1,58 @@
+<h2>{{ this.title }}</h2>
+<div class="container">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions"
+                *ngFor="let superHero of this.superHeroes$; index as i; first as isFirst" data-slide-to="index"
+                [ngClass]="{'active' : isFirst}"></li>
+        </ol>
+        <div class="carousel-inner  ">
+            <div class="carousel-item" *ngFor="let superHero of this.superHeroes$; index as i; first as isFirst"
+                [ngClass]="{'active' : isFirst}" (click)="selectSuperHero(superHero)">
+                <div style="height: 300px">
+                    <img src="{{superHero.img}}" class="d-block" alt="{{superHero.name}}" style="margin: auto">
+                    <div class="carousel-caption d-none d-md-block text-secondary">
+                        <h5>{{ superHero.name }}</h5>
+                        <small>{{ superHero.nameIrl }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon text-primary" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <search-superhero></search-superhero>
+    <ul>
+        <li *ngFor="let superHero of this.superHeroes$">
+            <div class="card mb-3" (click)="selectSuperHero(superHero)" superheroBorder [superheroColor]="'red'"
+                [superheroWidth]="400">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{ superHero.img }}" class="card-img">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ superHero.name }}
+                                {{ superHero.creationdate | date:"yyyy-MMM-dd" | uppercase }}
+                            </h5>
+                            <p class="card-text">{{ superHero | superHero }}</p>
+                            <div>
+                                <span *ngFor='let power of superHero.powers'
+                                    class='{{ power | superHeroPower }}'>{{power.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

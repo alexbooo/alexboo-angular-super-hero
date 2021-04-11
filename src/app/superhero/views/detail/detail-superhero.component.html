@@ -1,0 +1,82 @@
+<div *ngIf="superHero" class="container-sm">
+    <div class="h4">{{ superHero.name }}</div>
+
+
+    <div class="card mb-3" style="max-width: 600px; border:none;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ superHero.img }}" class="card-img" alt="..." width="200px">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ superHero.name }}</h5>
+                    
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Name:
+                            </div>
+                            <div class="col-sm-8">
+                                <strong>{{ superHero.name }}</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Name Irl:
+                            </div>
+                            <div class="col-sm-8">
+                                <strong>{{ superHero.nameIrl }}</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Powers:
+                            </div>
+                            <div class="col-sm-8">
+                                <span *ngFor="let power of superHero.powers"
+                    class="{{ power | superHeroPower }}">{{ power.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>   
+
+                    <p class="card-text"><small class="text-muted">{{ superHero.creationdate }}</small></p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='flex'>
+        <div>
+            <img src="{{ superHero.img }}" width="200px">
+        </div>
+        <div class='flex flex-column mt-100'>
+            <div>
+                Name: <strong>{{ superHero.name }}</strong>
+            </div>
+            <div>
+                Name Irl: <strong>{{ superHero.nameIrl }}</strong>
+            </div>
+            <div class='item'>
+                Powers:
+                <span *ngFor="let power of superHero.powers"
+                    class="{{ power | superHeroPower }}">{{ power.name }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group" data-toggle="buttons">
+        <a (click)="goBack()" class="btn btn-primary">Back</a>
+        <a (click)="goEdit()" class="btn btn-outline-secondary">Edit</a>
+        <a (click)="goEditReactive()" class="btn btn-outline-secondary">EditReactive</a>
+        <a (click)="delete(superHero)" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+<!-- <h4 *ngIf='!superHero'>No super hero to display</h4> -->
+<h4 *ngIf='!superHero'>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</h4>

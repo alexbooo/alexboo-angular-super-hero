@@ -1,0 +1,94 @@
+<div class='container'>
+    <h2>{{ superHero?.name }} edit reactive</h2>
+
+    <div class="row">
+        <div class="col-3">
+            <img *ngIf="superHero" [src]="superHero?.img"/>
+        </div>
+
+        <div class="col-8">
+            <form *ngIf="superHero" [formGroup]="form" (ngSubmit)="onSubmit(form)"
+            class="container-fluid">
+    
+                <div>
+                    <div>
+                        {{ superHero.name }}
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="nameIrl">name irl</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="nameIrl" 
+                            class="form-control"
+                            formControlName="nameIrl" 
+                            placeholder="your name"
+                            required
+                            pattern="^[a-zA-Z ]{1,25}$">
+                            <small class="form-text text-muted">
+                                <span>Name: {{ form.get('nameIrl').value }}</span>
+                            </small>
+                        </div>
+                        <div class="col-sm-2" [hidden]="form.controls.nameIrl.valid || form.controls.nameIrl.pristine || !form.get('nameIrl').errors">
+                            <small class="text-danger">
+                                bad user
+                              </small>
+                        </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">power</label>
+                        <div class="col-sm-10" style="padding-top: 7px">
+                            <div class="form-check form-check-inline" formArrayName="powers" *ngFor="let power of powersFormArray.controls; let i = index">
+                                <input type="checkbox" 
+                                class="form-check-input"
+                                [formControlName]="i"
+                                id="{{i}}" 
+                                [checked]="hasPower(power)"
+                                (change)="selectPower($event)"
+                                [value]="power"/>
+                                <label class="form-check-label" [attr.for]="power">
+                                    <span>
+                                        {{ superHeroService.getSuperHeroPowers()[i].name}}
+                                    </span>
+                                </label>
+                            
+                            </div>
+                            <div class="col-sm-10" *ngIf="!form.controls['powers'].valid">
+                                <small class="text-danger">
+                                    At least one at most three powers must be selected
+                                </small>      
+                            </div>  
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="testRegex">testRegex</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="testRegex" 
+                            class="form-control"
+                            formControlName="testRegex" 
+                            placeholder="your name"
+                            pattern="^[0-9]{8}$">
+                            <small class="form-text text-muted">
+                                <span>Name: {{ form.get('testRegex').value }}</span>
+                            </small>
+                        </div>
+                        <div class="col-sm-2" [hidden]="form.controls.testRegex.valid || form.controls.testRegex.pristine || !form.get('testRegex').errors">
+                            <small class="text-danger">
+                                bad user
+                              </small>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+                        Valid
+                      </button>
+                </div>
+                    
+            
+            </form>
+            
+        </div>
+        
+    </div>
+</div>
